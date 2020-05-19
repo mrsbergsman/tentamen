@@ -28,11 +28,171 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a book
+      operationId: createBook
+      tags:
+       - books 
+      requestBody:
+        description: to create the book
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'        
+      responses:
+        '201':
+          description: The crested book
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseBooks"          
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"  
+  /books/{bookId}:
+    get:
+      summary: Get book by id
+      operationId: getBook
+      tags:
+        - books
+      parameters:
+      - name: bookId
+        in: path
+        required: true
+        description: book by id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The found book
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseBooks"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"  
+    put:
+      summary: update a specific book
+      operationId: putBook
+      tags:
+      - books
+      requestBody:
+        description: updated book info
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      parameters:
+      - name: bookId
+        in: path
+        required: true
+        description: book id to be retrieved
+        schema:
+          type: string              
+      responses:
+        '200':
+          description: The replaced book
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseBooks"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"   
+    patch:
+      summary: update a specific book
+      operationId: patchBook
+      tags:
+      - books
+      requestBody:
+        description: updated book info
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      parameters:
+      - name: bookId
+        in: path
+        required: true
+        description: book id to be retrieved
+        schema:
+          type: string              
+      responses:
+        '200':
+          description: The replaced book
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseBooks"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"  
+    delete:
+      summary: Delete a specific book
+      operationId: deleteBook
+      tags:
+        - books
+      parameters:
+      - name: bookId
+        in: path
+        required: true        
+        description: book id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The deleted book
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseBooks"
+        '204':
+          description: No change (nothing was deleted)
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"                
 components:
   schemas:
     Book: # A single book
       type: object
       properties:
+        ISBN:
+          type: string
+        title:
+          type: string
+        author:
+          type: string
+        price:
+          type: number
+        sellerEmail:
+          type: string
+        used:
+          type: boolean          
+        location:
+          properties:
+            city:
+              type: string
+            street:
+              type: string              
 # Add properties for your books here   
     ResponseBook: #Single book response including _id and __v
       allOf:
