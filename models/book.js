@@ -1,7 +1,5 @@
 mongoose = require('mongoose');
 
-mongoose = require('mongoose');
-
 const bookSchema = new mongoose.Schema({
   ISBN: {
     type: String,

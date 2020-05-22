@@ -15,9 +15,24 @@ paths:
       operationId: listBooks
       tags:
       - books
+      parameters:
+      - in: query
+        name: Author
+        schema:
+         type: string
+        required: false   
+        description: books sorted by Author
+      - in: query
+        name: Title
+        schema:
+         type: string
+        required: false   
+        description: books sorted by Title        
       responses:
         '200':
           description: Array of books
+        '404':
+          description: books not found         
           content:
             application/json:    
               schema:
@@ -46,7 +61,7 @@ paths:
           content:
             application/json:    
               schema:
-                $ref: "#/components/schemas/ResponseBooks"          
+                $ref: "#/components/schemas/ResponseBook"          
         default:
           description: unexpected error
           content:
@@ -67,12 +82,14 @@ paths:
         schema:
           type: string
       responses:
-        '200':
-          description: The found book
+        '200': 
+          description: The found book 
+        '404':  
+          description: The book could not be found        
           content:
             application/json:    
               schema:
-                $ref: "#/components/schemas/ResponseBooks"
+                $ref: "#/components/schemas/ResponseBook"
         default:
           description: unexpected error
           content:
@@ -104,7 +121,7 @@ paths:
           content:
             application/json:    
               schema:
-                $ref: "#/components/schemas/ResponseBooks"
+                $ref: "#/components/schemas/ResponseBook"
         default:
           description: unexpected error
           content:
@@ -136,7 +153,7 @@ paths:
           content:
             application/json:    
               schema:
-                $ref: "#/components/schemas/ResponseBooks"
+                $ref: "#/components/schemas/ResponseBook"
         default:
           description: unexpected error
           content:
@@ -161,7 +178,7 @@ paths:
           content:
             application/json:    
               schema:
-                $ref: "#/components/schemas/ResponseBooks"
+                $ref: "#/components/schemas/ResponseBook"
         '204':
           description: No change (nothing was deleted)
         default:
