@@ -84,8 +84,8 @@ paths:
       responses:
         '200': 
           description: The found book 
-        '404':  
-          description: The book could not be found        
+        '201':  
+          description: Updated book        
           content:
             application/json:    
               schema:
